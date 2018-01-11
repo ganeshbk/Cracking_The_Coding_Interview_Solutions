@@ -40,9 +40,11 @@ int main(void){
 bool hasUniqueCharacters(string str){
 	int strLength = str.size();
 	bool characters[256];
+	//Initializing all the index values in characters array to false.
 	for(int i=0;i<256;i++){
 		characters[i] = false;
 	}
+	//We are verifying if the character is already present in the array else making it true and perform this operation untill the string is complete.
 	for(int i=0;i<strLength-1;i++){
 		if(characters[int(str[i])])
 			return false;
@@ -51,13 +53,6 @@ bool hasUniqueCharacters(string str){
 	}
 	return true;
 }
-
-
-
-
-
-
-
 
 /****************************************************/
 // EOF: 11.cpp
