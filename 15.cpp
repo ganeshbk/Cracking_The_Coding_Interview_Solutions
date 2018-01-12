@@ -31,9 +31,9 @@ int main(void){
 
 
 
-/// Summary:   This method comapres the two strings
-/// Parameters:There are two parameters string1 and string2
-/// Returns : Returns true if two strings are equal.
+/// Summary:   This method replaces the whitespace with %20 and allocates the new string memory.
+/// Parameters: Parameter 1 is teh input original string, parameter 2 is the new length of the new string.
+/// Returns : Returns the pointer to the modified string.
 
 char * replaceSpace(string str, int newLength){
 	char * newStr = (char*)malloc(sizeof(char)*newLength);
