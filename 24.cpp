@@ -1,6 +1,6 @@
 /******************************************************************************************************************************************/
-//Problem 2.3 Implement an algorithm to delete a node in the middle of a single linked list, given only access to that node.
-//Filename:23.cpp //Naming Convention is 21 means Chapter 2 and problem 3
+//Problem 2.5 You have two numbers represented by a linked list, where each node contains a single digit. The digits are stored in reverse order, such that the 1’s digit is at the head of the list. Write a function that adds the two numbers and returns the sum as a linked list.
+//Filename:25.cpp //Naming Convention is 21 means Chapter 2 and problem 5
 //Author:  Ganesh Kudleppanavar
 //Version:    01/12/2018 Ganesh Kudleppanavar
 /******************************************************************************************************************************************/
@@ -24,25 +24,38 @@ node * getNewNode(int data);
 void printLinkedList(node* head);
 node * findNthNode(node * head,int);
 void removeSpecifiedNode(node * targerRemovalNode);
+node * addLinkedList(node * num1, node * num2);
 
 int main(void){	
-	node * head =NULL;
-	head = createLinkedList(head);
-	printLinkedList(head);
-	int n=0;
-	cout << " \nEnter the node you want to find: ";
-	cin >> n;
-	cout << "\nThe nth Node is : ";
-	node * temp = findNthNode(head, n);
-	if(temp!= NULL)
-		cout << temp->data;
-	else  
-		cout << " no nth node available";
-	removeSpecifiedNode(temp);
-	cout << " \nthe linked list after removal of the target node is ";
-	printLinkedList(head);
+	node * num1 =NULL, *num2 = NULL;
+	num1 = createLinkedList(num1);
+	cout << "The first input is : ";
+	printLinkedList(num1);
+	num2 = createLinkedList(num2);
+	cout << "The second input is : ";
+	printLinkedList(num2);
+	
+	node *output = NULL;	
+	output = addLinkedList(num1,num2);
+	cout << "\n";
+	printLinkedList(output);
 	return 0;
 }
+
+/// Summary:   Inserts the data in the linked list pointed by head pointer recursively.
+/// Parameters: Parameter 1 is the pointer of the head of the linked list. Parameter 2 is the data to be added in the linked list node.
+/// Returns : Returns the pointer of the head of the linked list.
+
+node * insertNode(node *head, int data){
+	if(head == NULL){
+		head = getNewNode(data);
+	}
+	else	
+		head->next = insertNode(head->next, data);
+	
+	return head;
+}
+
 
 /// Summary:   Creates the linked list based on user input
 /// Parameters: Parameter 1 is the pointer of the head of the linked list
@@ -60,20 +73,6 @@ node * createLinkedList(node *head){
 		cout << "Do you wanna continue : ";
 		cin >> ch;
 	}
-	return head;
-}
-
-/// Summary:   Inserts the data in the linked list pointed by head pointer recursively.
-/// Parameters: Parameter 1 is the pointer of the head of the linked list. Parameter 2 is the data to be added in the linked list node.
-/// Returns : Returns the pointer of the head of the linked list.
-
-node * insertNode(node *head, int data){
-	if(head == NULL){
-		head = getNewNode(data);
-	}
-	else	
-		head->next = insertNode(head->next, data);
-	
 	return head;
 }
 
@@ -99,45 +98,29 @@ void printLinkedList(node* head){
 }
 
 
-/// Summary:   This method finds the nth node in the linked list.
-/// Parameters: Parameter 1 is pointer of the head node and 
-///				Parameter 2 is the nth node that needs to be found.
-/// Returns : Returns the pointer of the nth node avaialbe. If no Nth node is available returns NULL.
-
-node * findNthNode(node * head,int n){
-	if(head == NULL) return head;
-	int count =0;
-	while(head!=NULL){
-		count++;
-		if(count == n){
-			return head;
-		}
-		else
-		{
-			head = head->next;
-		}
-	}
-	return head;
-	
-}
-
-
 /// Summary:   This method finds the specified node in the linked list.
-/// Parameters: Parameter 1 is pointer of the node to be deleted. You cannot remove the last node as a result if you pass the last node the function returns without deleting the node.
-/// Returns : Does not return anything.
-void removeSpecifiedNode(node * targetRemovalNode){
-	if(targetRemovalNode == NULL || targetRemovalNode->next == NULL)
-		return ;
-	
-	else 
+/// Parameters:Parameter 1: it is the pointer to the linked list of the first number;
+///			   Parameter 2: it is the pointer to the linked list of the sexond number;
+/// Returns :  Returns the head of the result linked list.
+node * addLinkedList(node * num1, node * num2){
+	int tempSum=0,carry = 0;
+	node * result=NULL, *head ;
+	head = result;
+	while(num1 !=NULL || num2 != NULL || carry !=0)
 	{
-		targetRemovalNode->data = targetRemovalNode->next->data;
-		targetRemovalNode->next = targetRemovalNode->next->next;
+		tempSum = ((num1!=NULL)?num1->data:0)+((num2!=NULL)?num2->data:0)+carry;
+		carry = tempSum / 10;
+		//cout << " tempsum: " << tempSum%10;
+		result =  insertNode(result,tempSum%10);
+		num1 = ((num1!=NULL)?num1->next:NULL);
+		num2 = ((num2!=NULL)?num2->next:NULL);
 	}
+	
+	return result;
 }
 
 
 
 /****************************************************/
-// EOF: 23.cpp
+// EOF: 24.cpp
 /****************************************************/
