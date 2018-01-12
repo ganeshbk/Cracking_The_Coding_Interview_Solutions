@@ -1,6 +1,12 @@
 /******************************************************************************************************************************************/
-//Problem 2.1 Write code to remove duplicates from an unsorted linked list.
-//Filename:21.cpp //Naming Convention is 21 means Chapter 2 and problem 1
+//Problem 2.3 Implement an algorithm to delete a node in the middle of a single linked list, given only access to that node.
+//Filename:23.cpp //Naming Convention is 21 means Chapter 2 and problem 3
+//Author:  Ganesh Kudleppanavar
+//Version:    01/12/2018 Ganesh Kudleppanavar
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+//Problem 2.2 Implement an algorithm to find the nth to last element of a singly linked list.
+//Filename:22.cpp //Naming Convention is 21 means Chapter 2 and problem 2
 //Author:  Ganesh Kudleppanavar
 //Version:    01/12/2018 Ganesh Kudleppanavar
 /******************************************************************************************************************************************/
@@ -22,15 +28,24 @@ node * insertNode(node *head, int data);
 node * createLinkedList(node *head);
 node * getNewNode(int data);
 void printLinkedList(node* head);
-void removeNode(node * crawler, node * head);
-node * removeDuplicateNode(node* head);
+node * findNthNode(node * head,int);
+void removeSpecifiedNode(node * targerRemovalNode);
 
 int main(void){	
 	node * head =NULL;
 	head = createLinkedList(head);
 	printLinkedList(head);
-	head = removeDuplicateNode(head);
-	cout << "\nAfter removal of duplicates : \n";
+	int n=0;
+	cout << " \nEnter the node you want to find: ";
+	cin >> n;
+	cout << "\nThe nth Node is : ";
+	node * temp = findNthNode(head, n);
+	if(temp!= NULL)
+		cout << temp->data;
+	else  
+		cout << " no nth node available";
+	removeSpecifiedNode(temp);
+	cout << " \nthe linked list after removal of the target node is ";
 	printLinkedList(head);
 	return 0;
 }
@@ -89,45 +104,46 @@ void printLinkedList(node* head){
 	}
 }
 
-/// Summary:   This method removes the duplicate nodes.
-/// Parameters: Parameter 1 is pointer of the head node.
-/// Returns : Returns the pointer of the head of the linked list.
 
-node * removeDuplicateNode(node * head){
-	if(head == NULL )return head;
-	node * temp = head, *crawler = head->next;
-	while(temp!=NULL){
-		while(crawler!=NULL){
-			if(temp->data == crawler->data){
-				cout << "removing node\n "  << temp->data;
-				removeNode(crawler,head);
-			}
-			crawler=crawler->next;
+/// Summary:   This method finds the nth node in the linked list.
+/// Parameters: Parameter 1 is pointer of the head node and 
+///				Parameter 2 is the nth node that needs to be found.
+/// Returns : Returns the pointer of the nth node avaialbe. If no Nth node is available returns NULL.
+
+node * findNthNode(node * head,int n){
+	if(head == NULL) return head;
+	int count =0;
+	while(head!=NULL){
+		count++;
+		if(count == n){
+			return head;
 		}
-		temp = temp->next;
-		if(temp!=NULL)
-			crawler = temp->next;
+		else
+		{
+			head = head->next;
+		}
 	}
 	return head;
+	
 }
 
 
-/// Summary:   This method breaks the link of the duplicate node.
-/// Parameters: Parameter 1 is pointer of the node that needs to be broken/removed,  and the parameter 2 is the head node of the linked list.
+/// Summary:   This method finds the specified node in the linked list.
+/// Parameters: Parameter 1 is pointer of the node to be deleted. You cannot remove the last node as a result if you pass the last node the function returns without deleting the node.
 /// Returns : Does not return anything.
-
-void removeNode(node * crawler, node * head){
-	while(head!=NULL){
-		if(head->next == crawler){
-			node *temp = crawler->next;
-			head->next  = temp;
-			//crawler->next = NULL;
-			//crawler = NULL;
-		}
-		head = head->next;
+void removeSpecifiedNode(node * targetRemovalNode){
+	if(targetRemovalNode == NULL || targetRemovalNode->next == NULL)
+		return ;
+	
+	else 
+	{
+		targetRemovalNode->data = targetRemovalNode->next->data;
+		targetRemovalNode->next = targetRemovalNode->next->next;
 	}
 }
 
+
+
 /****************************************************/
-// EOF: 21.cpp
+// EOF: 23.cpp
 /****************************************************/
