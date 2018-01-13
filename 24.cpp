@@ -1,6 +1,6 @@
 /******************************************************************************************************************************************/
-//Problem 2.5 You have two numbers represented by a linked list, where each node contains a single digit. The digits are stored in reverse order, such that the 1’s digit is at the head of the list. Write a function that adds the two numbers and returns the sum as a linked list.
-//Filename:25.cpp //Naming Convention is 21 means Chapter 2 and problem 5
+//Problem 2.4 You have two numbers represented by a linked list, where each node contains a single digit. The digits are stored in reverse order, such that the 1’s digit is at the head of the list. Write a function that adds the two numbers and returns the sum as a linked list.
+//Filename:24.cpp //Naming Convention is 21 means Chapter 2 and problem 4
 //Author:  Ganesh Kudleppanavar
 //Version:    01/12/2018 Ganesh Kudleppanavar
 /******************************************************************************************************************************************/
