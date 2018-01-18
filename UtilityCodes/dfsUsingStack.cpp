@@ -44,15 +44,16 @@ void Graph::DFS(int s){
 
 int main()
 {
-    Graph g(5); // Total 5 vertices in graph
-    g.addEdge(1, 0);
+    Graph g(4);
+    g.addEdge(0, 1);
     g.addEdge(0, 2);
-    g.addEdge(2, 1);
-    g.addEdge(0, 3);
-    g.addEdge(1, 4);
+    g.addEdge(1, 2);
+    g.addEdge(2, 0);
+    g.addEdge(2, 3);
+    g.addEdge(3, 3);
  
-    cout << "Following is Depth First Traversal\n";
-    g.DFS(0);
- 
+    cout << "Following is Breadth First Traversal "
+         << "(starting from vertex 2) \n";
+    g.BFS(2);
     return 0;
 }
